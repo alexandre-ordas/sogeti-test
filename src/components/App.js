@@ -1,11 +1,28 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useCallback} from "react"
 import TaskList from "./TaskList";
 
 const App = () => {
+    const [nextId, setNextId] = useState(null);
     const [tasks, setTasks] = useState([]);
     const [isFetching, setIsFetching] = useState(true);
     const [hasError, setHasError] = useState(false);
     const [hasFetchedFirst, setHasFetchedFirst] = useState(false)
+
+    const setTaskStatus = useCallback(
+        (taskId, isDone) => {
+            const taskIndex = tasks.findIndex(t => t.id === taskId)
+            const tasksBefore = tasks.slice(0, taskIndex)
+            const tasksAfter = tasks.slice(taskIndex + 1)
+            const newTask = {...tasks[taskIndex], isDone}
+            if (isDone) {
+                setTasks([...tasksBefore, ...tasksAfter, newTask])
+            }
+            else {
+                setTasks([...tasksBefore, newTask, ...tasksAfter])
+            }
+        },
+        [tasks],
+    )
 
     useEffect(() => {
         if (!hasFetchedFirst) {
@@ -42,7 +59,12 @@ const App = () => {
         <div>
             <h1 className={"p-3"}>Todolist</h1>
 
-            <TaskList tasks={tasks}/>
+            <TaskList
+                tasks={tasks}
+                setTaskStatus={setTaskStatus}
+
+            />
+
         </div>
     )
 
