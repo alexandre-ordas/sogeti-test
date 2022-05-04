@@ -1,2 +1,2 @@
 # sogeti-test
-Test for Sogeti about Todo List made by Reactjs
+Test for Sogeti about Todo List made with framework Reactjs
