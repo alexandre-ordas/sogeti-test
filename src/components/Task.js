@@ -1,13 +1,17 @@
 import React from "react"
 
-const Task = ({ task }) => {
+const Task = ({ task, setTaskStatus }) => {
     return (
         <label className="d-flex mx-3 justify-content-between">
             <div className="d-flex">
                 <input
                     type="checkbox"
                     className="form-check-input"
-                    checked=""
+                    checked={task.isDone}
+                    onChange={event => {
+                        const isDone = event.target.checked
+                        setTaskStatus(isDone)
+                    }}
                 />
                 <p className="mx-3">{task.label}</p>
             </div>
@@ -15,14 +19,12 @@ const Task = ({ task }) => {
                 <button
                     type="button"
                     className="btn btn-secondary mx-3"
-                    onClick=""
                 >
                    Update
                 </button>
                 <button
                     type="button"
                     className="btn btn-danger"
-                    onClick=""
                 >
                     Delete
                 </button>
