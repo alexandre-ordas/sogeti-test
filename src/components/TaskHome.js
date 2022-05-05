@@ -1,11 +1,29 @@
 import React, {useState, useEffect, useCallback} from "react"
 import TaskList from "./TaskList";
 import {Link} from "react-router-dom";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const TaskHome = ({tasks, setTasks}) => {
 
-    const removeTask = label => {
-        setTasks(tasks => tasks.filter(task => task.label !== label))
+    const remove= label => {
+
+        confirmAlert({
+
+            title: 'Delete task',
+            message: 'Are you sure to do this.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => setTasks(tasks => tasks.filter(task => task.label !== label))
+                },
+                {
+                    label: 'No',
+                    onClick: () => ''
+                }
+            ]
+        });
+
     }
 
     const setTaskStatus = useCallback(
@@ -39,7 +57,7 @@ const TaskHome = ({tasks, setTasks}) => {
             <TaskList
                 tasks={tasks}
                 setTaskStatus={setTaskStatus}
-                removeTask={removeTask}
+                remove={remove}
 
 
             />

@@ -12,13 +12,12 @@ class TaskForm extends Component {
     }
     validate = values => {
         const errors = {}
-        if (!values.label) {
-            errors.label = 'Please enter a title.'
+        if (!values.title) {
+            errors.title = 'Please enter a title.'
         }
         if (!values.date) {
 
             errors.date = 'Please enter a date.'
-
         }
         if (!values.description) {
             errors.description = 'Please enter a description.'
@@ -34,7 +33,7 @@ class TaskForm extends Component {
     }
 
     renderError(name) {
-        return <ErrorMessage name={name} component="span" className="error" />
+        return <ErrorMessage name={name} component="span" className="text-danger" />
     }
     render() {
         return (
@@ -55,7 +54,7 @@ class TaskForm extends Component {
                             {this.renderError('date')}
                         </label>
                         <label htmlFor="">
-                            description:
+                            Description:
                                 <Field component="textarea" name="description" className={"form-control my-3"}/>
                             {this.renderError('description')}
                         </label>

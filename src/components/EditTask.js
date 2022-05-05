@@ -14,10 +14,10 @@ const EditTask = ({tasks, update}) => {
                 task={task}
                 onSubmit={ taskInfos => {
                     update(taskInfos)
-                    navigate(`/${task.id}`)
+                    navigate(`/`)
                 }}
                 onCancel={ () => {
-                    navigate(`/${task.id}`)
+                    navigate(`/`)
                 }}
             />
         </div>

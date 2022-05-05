@@ -1,7 +1,7 @@
 import React from "react"
 import Task from "./Task"
 
-const TaskList = ({ tasks, setTaskStatus, removeTask }) => (
+const TaskList = ({ tasks, setTaskStatus, remove }) => (
 
     <ul className="list-unstyled">
         {tasks.map(task => (
@@ -9,7 +9,7 @@ const TaskList = ({ tasks, setTaskStatus, removeTask }) => (
                     <Task
                         task={task}
                         setTaskStatus={isDone => setTaskStatus(task.id, isDone)}
-                        removeTask={removeTask}
+                        remove={remove}
                     />
             </li>
         ))}

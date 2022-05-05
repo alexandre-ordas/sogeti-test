@@ -11,8 +11,8 @@ const CreateExpenseForm = ({addTask}) => {
             <div>
                 <h2 className={"text-center my-3"}>Create a new task</h2>
                 <TaskForm
-                    onSubmit={expenseInfos => {
-                        addTask(expenseInfos)
+                    onSubmit={taskInfos => {
+                        addTask(taskInfos)
                         navigate('/')
                     }}
                     onCancel={() => { navigate('/')}}

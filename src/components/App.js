@@ -39,7 +39,7 @@ const App = () => {
             setHasFetchedFirst(true)
             setHasError(false)
             setIsFetching(true)
-            fetch('https://jsonplaceholder.typicode.com/users/10/todos')
+            fetch('https://jsonplaceholder.typicode.com/users/1/posts')
                 .then(res => res.json())
                 .then(newTasks => {
                     setIsFetching(false)
@@ -47,6 +47,7 @@ const App = () => {
                         newTasks.map(task => ({
                             id: task.id,
                             label: task.title,
+                            description: task.body,
                             isDone: false,
                         })),
                     )
@@ -71,8 +72,8 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<TaskHome tasks={tasks} setTasks={setTasks}/>}/>
                     <Route path="/add-task" element={<AddTask addTask={addTask}/>}/>
-                    <Route path="/:id/details" element={<TaskDetails tasks={tasks}/>}/>
-                    <Route path="/:id/edit" element={<EditTask tasks={tasks} updateTask={updateTask}/>}/>
+                    <Route path="/details/:id" element={<TaskDetails tasks={tasks}/>}/>
+                    <Route path="/edit/:id" element={<EditTask tasks={tasks} updateTask={updateTask}/>}/>
                 </Routes>
             </Router>
         </div>
