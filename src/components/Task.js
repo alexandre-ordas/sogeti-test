@@ -27,7 +27,7 @@ const Task = ({ task, setTaskStatus }) => {
                     type="button"
                     className="btn btn-secondary mx-3"
                 >
-                   Update
+                   Edit
                 </button>
                 <button
                     type="button"
