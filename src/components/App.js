@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useCallback} from "react"
-import TaskList from "./TaskList";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import TaskHome from "./TaskHome"
+import TaskDetails from "./TaskDetails"
 
 const App = () => {
     const [nextId, setNextId] = useState(null);
@@ -57,14 +59,12 @@ const App = () => {
 
     return (
         <div>
-            <h1 className={"p-3"}>Todolist</h1>
-
-            <TaskList
-                tasks={tasks}
-                setTaskStatus={setTaskStatus}
-
-            />
-
+            <Router>
+                <Routes>
+                    <Route path="/" element={<TaskHome tasks={tasks} setTaskStatus={setTaskStatus}/>}/>
+                    <Route path="/:id/details" element={<TaskDetails tasks={tasks}/>}/>
+                </Routes>
+            </Router>
         </div>
     )
 

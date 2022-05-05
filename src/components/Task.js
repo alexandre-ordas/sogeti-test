@@ -1,7 +1,9 @@
 import React from "react"
+import {Link} from "react-router-dom";
 
 const Task = ({ task, setTaskStatus }) => {
     return (
+
         <label className="d-flex mx-3 justify-content-between">
             <div className="d-flex">
                 <input
@@ -13,7 +15,12 @@ const Task = ({ task, setTaskStatus }) => {
                         setTaskStatus(isDone)
                     }}
                 />
-                <p className="mx-3">{task.label}</p>
+                <Link
+                    to={`/${task.id}/details`}
+                    className={`text-decoration-none
+                    ${task.isDone ? "text-decoration-line-through text-success" : "text-black"}`}>
+                    <p className="mx-3">{task.label}</p>
+                </Link>
             </div>
             <div className="d-flex">
                 <button
