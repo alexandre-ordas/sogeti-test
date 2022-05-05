@@ -25,14 +25,14 @@ const Task = ({ task, setTaskStatus, removeTask }) => {
             <div className="d-flex">
                 <button
                     type="button"
-                    className="btn btn-secondary mx-3"
-                > <Link to={`/${task.id}/edit`}>
+                    className="btn btn-secondary btn-lg mx-3"
+                > <Link to={`/${task.id}/edit`} className={"text-decoration-none text-white"}>
                    Edit
                 </Link>
                 </button>
                 <button
                     type="button"
-                    className="btn btn-danger"
+                    className="btn btn-danger btn-lg"
                     onClick={() => {
                         removeTask(task.label)
                     }}

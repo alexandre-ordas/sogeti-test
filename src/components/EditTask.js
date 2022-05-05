@@ -9,7 +9,7 @@ const EditTask = ({tasks, update}) => {
     const task = tasks.find(e => e.id === Number(id))
     return (
         <div>
-            <h2>Edit expense</h2>
+            <h2 className={"text-center my-3"}>Edit expense</h2>
             <TaskForm
                 task={task}
                 onSubmit={ taskInfos => {

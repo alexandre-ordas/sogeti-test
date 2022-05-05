@@ -9,7 +9,7 @@ const CreateExpenseForm = ({addTask}) => {
     return(
         <div>
             <div>
-                <h2>Create a new expense</h2>
+                <h2 className={"text-center my-3"}>Create a new task</h2>
                 <TaskForm
                     onSubmit={expenseInfos => {
                         addTask(expenseInfos)

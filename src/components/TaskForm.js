@@ -44,23 +44,30 @@ class TaskForm extends Component {
                 onSubmit={this.onSubmit}
             >
                 {({ handleSubmit, isSubmitting }) => (
-                    <form className="expense-form" onSubmit={handleSubmit}>
+                    <form className="d-flex flex-column p-3 " onSubmit={handleSubmit}>
                         <label htmlFor="">
-                            Title : <Field type="text" name="label" />
+                            Title : <Field type="text" name="label" className={"form-control my-3"} />
                             {this.renderError('label')}
                         </label>
                         <label htmlFor="">
-                            Date : <Field type="date" name="date" />
+                            Date :
+                            <Field type="date" name="date" className={"form-control my-3"} />
                             {this.renderError('date')}
                         </label>
                         <label htmlFor="">
-                            description: <Field type="textarea" name="description" />
+                            description:
+                                <Field component="textarea" name="description" className={"form-control my-3"}/>
                             {this.renderError('description')}
                         </label>
-                        <button onClick={this.onCancel}>Cancel</button>
-                        <button className="btn btn-primary" type="submit">
-                            {this.props.task ? 'Edit' : 'Create'}
-                        </button>
+                        <div>
+                            <button
+                                className={"btn btn-secondary btn-lg me-3"}
+                                onClick={this.onCancel}>Cancel
+                            </button>
+                            <button className="btn btn-primary btn-lg" type="submit">
+                                {this.props.task ? 'Edit' : 'Create'}
+                            </button>
+                        </div>
                     </form>
                 )}
             </Formik>

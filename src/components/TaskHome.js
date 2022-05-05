@@ -29,9 +29,11 @@ const TaskHome = ({tasks, setTasks}) => {
         <div>
             <div className={"d-flex justify-content-between"}>
                 <h1 className={"p-3"}>Todolist</h1>
-                <Link to="/add-task" className="btn btn-primary" >
-                    Add Task
-                </Link>
+                <button className="btn btn-primary btn-lg m-3">
+                    <Link to="/add-task" className={"text-decoration-none text-white"} >
+                        Add Task
+                    </Link>
+                </button>
             </div>
 
             <TaskList
