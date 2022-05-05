@@ -11,9 +11,6 @@ class TaskForm extends Component {
         if (!values.label) {
             errors.label = 'Please enter a title.'
         }
-        if (!values.description) {
-            errors.description = 'Please enter a description.'
-        }
         return errors
     }
     onSubmit = task => {

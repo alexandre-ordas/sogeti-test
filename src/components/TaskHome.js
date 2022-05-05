@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const TaskHome = ({tasks, setTasks}) => {
+const TaskHome = ({tasks, setTasks,setTaskStatus}) => {
 
     const remove= label => {
 
@@ -25,22 +25,6 @@ const TaskHome = ({tasks, setTasks}) => {
         });
 
     }
-
-    const setTaskStatus = useCallback(
-        (taskId, isDone) => {
-            const taskIndex = tasks.findIndex(t => t.id === taskId)
-            const tasksBefore = tasks.slice(0, taskIndex)
-            const tasksAfter = tasks.slice(taskIndex + 1)
-            const newTask = {...tasks[taskIndex], isDone}
-            if (isDone) {
-                setTasks([...tasksBefore, ...tasksAfter, newTask])
-            }
-            else {
-                setTasks([...tasksBefore, newTask, ...tasksAfter])
-            }
-        },
-        [tasks],
-    )
 
 
     return (

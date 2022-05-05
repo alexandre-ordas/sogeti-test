@@ -13,6 +13,21 @@ const App = () => {
     const [hasFetchedFirst, setHasFetchedFirst] = useState(false)
 
 
+    const setTaskStatus = useCallback(
+        (taskId, isDone) => {
+            const taskIndex = tasks.findIndex(t => t.id === taskId)
+            const tasksBefore = tasks.slice(0, taskIndex)
+            const tasksAfter = tasks.slice(taskIndex + 1)
+            const newTask = {...tasks[taskIndex], isDone}
+            if (isDone) {
+                setTasks([...tasksBefore, ...tasksAfter, newTask])
+            }
+            else {
+                setTasks([...tasksBefore, newTask, ...tasksAfter])
+            }
+        },
+        [tasks],
+    )
 
     const addTask = useCallback(
         (taskInfos) => {
@@ -33,29 +48,42 @@ const App = () => {
         [tasks],
     )
 
-    useEffect(() => {
+    useEffect( () => {
+        window.localStorage.setItem('myTask', JSON.stringify(tasks))
+        console.log('myTask', tasks)
+    }, [tasks])
+
+   useEffect(() => {
+        const items = window.localStorage.getItem('myTask')
+       console.log(items)
+        if (items) {
+            setTasks(JSON.parse(items));
+        }
+
+    }, []);
+
+     useEffect(() => {
         if (!hasFetchedFirst) {
             setHasFetchedFirst(true)
             setHasError(false)
             setIsFetching(true)
-            fetch('https://jsonplaceholder.typicode.com/users/1/posts')
-                .then(res => res.json())
-                .then(newTasks => {
-                    setIsFetching(false)
-                    setTasks(
-                        newTasks.map(task => ({
-                            id: task.id,
-                            label: task.title,
-                            description: task.body,
-                            isDone: false,
-                        })),
-                    )
-                    setNextId(Math.max(...newTasks.map(task => task.id)) + 1)
-                })
-                .catch(() => setHasError(true))
-
-        }
-    })
+                fetch('https://jsonplaceholder.typicode.com/users/1/posts')
+                    .then(res => res.json())
+                    .then(newTasks => {
+                        setIsFetching(false)
+                        setTasks(
+                            newTasks.map(task => ({
+                                id: task.id,
+                                label: task.title,
+                                description: task.body,
+                                isDone: false,
+                            })),
+                        )
+                        setNextId(Math.max(...newTasks.map(task => task.id)) + 1)
+                    })
+                    .catch(() => setHasError(true))
+            }
+    }, [])
 
     if (hasError) {
         return <p>An error occur...</p>
@@ -69,7 +97,7 @@ const App = () => {
         <div>
             <Router>
                 <Routes>
-                    <Route path="/" element={<TaskHome tasks={tasks} setTasks={setTasks}/>}/>
+                    <Route path="/" element={<TaskHome tasks={tasks} setTaskStatus={setTaskStatus} setTasks={setTasks}/>}/>
                     <Route path="/add-task" element={<AddTask addTask={addTask}/>}/>
                     <Route path="/details/:id" element={<TaskDetails tasks={tasks}/>}/>
                     <Route path="/edit/:id" element={<EditTask tasks={tasks} updateTask={updateTask}/>}/>
