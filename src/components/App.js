@@ -15,8 +15,8 @@ const App = () => {
 
 
     const addTask = useCallback(
-        label => {
-            const newTask = {id: nextId, label}
+        (taskInfos) => {
+            const newTask = {id: nextId, ...taskInfos}
             setNextId(nextId + 1)
             setTasks([ newTask, ...tasks])
         },
@@ -24,12 +24,11 @@ const App = () => {
     )
 
     const updateTask = useCallback(
-        (label, taskId) => {
-            const taskIndex = tasks.findIndex(t => t.id === taskId)
+        (taskInfos) => {
+            const taskIndex = tasks.findIndex(t => t.id === taskInfos.id)
             const tasksBefore = tasks.slice(0, taskIndex)
             const tasksAfter = tasks.slice(taskIndex + 1)
-            const newName = {...tasks[taskIndex]}
-            setTasks([...tasksBefore, newName, ...tasksAfter])
+            setTasks([...tasksBefore, taskInfos, ...tasksAfter])
         },
         [tasks],
     )

@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import TaskForm from "./TaskForm";
 
-const EditTask = ({tasks, update}) => {
+const EditTask = ({tasks, updateTask}) => {
 
     const navigate = useNavigate()
     const {id} = useParams()
@@ -13,7 +13,7 @@ const EditTask = ({tasks, update}) => {
             <TaskForm
                 task={task}
                 onSubmit={ taskInfos => {
-                    update(taskInfos)
+                    updateTask(taskInfos)
                     navigate(`/`)
                 }}
                 onCancel={ () => {

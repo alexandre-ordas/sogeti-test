@@ -16,7 +16,7 @@ function TaskDetails({tasks}) {
                 Back
             </Link>
 
-            <Link to={`/${tasks.id}/edit`} className="btn btn-secondary mx-2">
+            <Link to={`/edit/${tasks.id}`} className="btn btn-secondary mx-2">
                 Edit
             </Link>
         </div>

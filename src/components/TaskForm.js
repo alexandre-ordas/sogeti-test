@@ -3,21 +3,13 @@ import { Formik, Field, ErrorMessage } from "formik";
 
 class TaskForm extends Component {
     defaultValues = {
-        title: '',
-        date: new Date()
-            .toISOString()
-            .split('T')
-            .shift(),
+        label: '',
         description: '',
     }
     validate = values => {
         const errors = {}
-        if (!values.title) {
-            errors.title = 'Please enter a title.'
-        }
-        if (!values.date) {
-
-            errors.date = 'Please enter a date.'
+        if (!values.label) {
+            errors.label = 'Please enter a title.'
         }
         if (!values.description) {
             errors.description = 'Please enter a description.'
@@ -47,11 +39,6 @@ class TaskForm extends Component {
                         <label htmlFor="">
                             Title : <Field type="text" name="label" className={"form-control my-3"} />
                             {this.renderError('label')}
-                        </label>
-                        <label htmlFor="">
-                            Date :
-                            <Field type="date" name="date" className={"form-control my-3"} />
-                            {this.renderError('date')}
                         </label>
                         <label htmlFor="">
                             Description:
