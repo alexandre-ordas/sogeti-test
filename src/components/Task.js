@@ -1,7 +1,7 @@
 import React from "react"
 import {Link} from "react-router-dom";
 
-const Task = ({ task, setTaskStatus }) => {
+const Task = ({ task, setTaskStatus, removeTask }) => {
     return (
 
         <label className="d-flex mx-3 justify-content-between">
@@ -26,12 +26,16 @@ const Task = ({ task, setTaskStatus }) => {
                 <button
                     type="button"
                     className="btn btn-secondary mx-3"
-                >
+                > <Link to={`/${task.id}/edit`}>
                    Edit
+                </Link>
                 </button>
                 <button
                     type="button"
                     className="btn btn-danger"
+                    onClick={() => {
+                        removeTask(task.label)
+                    }}
                 >
                     Delete
                 </button>

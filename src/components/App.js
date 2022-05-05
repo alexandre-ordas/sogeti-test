@@ -2,6 +2,8 @@ import React, {useState, useEffect, useCallback} from "react"
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import TaskHome from "./TaskHome"
 import TaskDetails from "./TaskDetails"
+import EditTask from "./EditTask";
+import AddTask from "./AddTask";
 
 const App = () => {
     const [nextId, setNextId] = useState(null);
@@ -10,18 +12,24 @@ const App = () => {
     const [hasError, setHasError] = useState(false);
     const [hasFetchedFirst, setHasFetchedFirst] = useState(false)
 
-    const setTaskStatus = useCallback(
-        (taskId, isDone) => {
+
+
+    const addTask = useCallback(
+        label => {
+            const newTask = {id: nextId, label}
+            setNextId(nextId + 1)
+            setTasks([ newTask, ...tasks])
+        },
+        [nextId, tasks],
+    )
+
+    const updateTask = useCallback(
+        (label, taskId) => {
             const taskIndex = tasks.findIndex(t => t.id === taskId)
             const tasksBefore = tasks.slice(0, taskIndex)
             const tasksAfter = tasks.slice(taskIndex + 1)
-            const newTask = {...tasks[taskIndex], isDone}
-            if (isDone) {
-                setTasks([...tasksBefore, ...tasksAfter, newTask])
-            }
-            else {
-                setTasks([...tasksBefore, newTask, ...tasksAfter])
-            }
+            const newName = {...tasks[taskIndex]}
+            setTasks([...tasksBefore, newName, ...tasksAfter])
         },
         [tasks],
     )
@@ -61,8 +69,10 @@ const App = () => {
         <div>
             <Router>
                 <Routes>
-                    <Route path="/" element={<TaskHome tasks={tasks} setTaskStatus={setTaskStatus}/>}/>
+                    <Route path="/" element={<TaskHome tasks={tasks} setTasks={setTasks}/>}/>
+                    <Route path="/add-task" element={<AddTask addTask={addTask}/>}/>
                     <Route path="/:id/details" element={<TaskDetails tasks={tasks}/>}/>
+                    <Route path="/:id/edit" element={<EditTask tasks={tasks} updateTask={updateTask}/>}/>
                 </Routes>
             </Router>
         </div>
