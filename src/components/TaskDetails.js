@@ -4,7 +4,6 @@ import {Link, useParams} from "react-router-dom";
 function TaskDetails({tasks}) {
     const {id} = useParams()
     const task = tasks.find(t => t.id === Number(id))
-    console.log(task)
     return (
         <div className={"text-center"}>
             <h2 className={"text-center"}>Task Details</h2>
