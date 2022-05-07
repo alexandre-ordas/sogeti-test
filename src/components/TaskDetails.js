@@ -3,13 +3,13 @@ import {Link, useParams} from "react-router-dom";
 
 function TaskDetails({tasks}) {
     const {id} = useParams()
-    const task = tasks.find(e => e.id === Number(id))
+    const task = tasks.find(t => t.id === Number(id))
+    console.log(task)
     return (
         <div className={"text-center"}>
             <h2 className={"text-center"}>Task Details</h2>
-
             <p className={"text-center"}><strong>{task.label}</strong></p>
-            <p>Date: <strong>{task.date}</strong></p>
+
             <p>Description: {task.description}</p>
 
             <Link to="/" className="btn btn-dark mx-2">

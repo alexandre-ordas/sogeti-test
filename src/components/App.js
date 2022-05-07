@@ -8,9 +8,49 @@ import AddTask from "./AddTask";
 const App = () => {
     const [nextId, setNextId] = useState(null);
     const [tasks, setTasks] = useState([]);
-    const [isFetching, setIsFetching] = useState(true);
+    const [isFetching, setIsFetching] = useState(false);
     const [hasError, setHasError] = useState(false);
     const [hasFetchedFirst, setHasFetchedFirst] = useState(false)
+
+    useEffect(() => {
+        const items = window.localStorage.getItem('myTask')
+        if (items && items.length) {
+            const stringifyToParse = JSON.parse(items)
+            setTasks(stringifyToParse)
+            setNextId(Math.max(stringifyToParse.map(item => item.id)) + 1)
+        } else {
+            if (!hasFetchedFirst) {
+                setHasFetchedFirst(true)
+                setHasError(false)
+                setIsFetching(true)
+                fetch('https://jsonplaceholder.typicode.com/users/1/posts')
+                    .then(res => res.json())
+                    .then(newTasks => {
+                        setIsFetching(false)
+                        let tasks = []
+                        let nextId
+                        newTasks.map(task => {
+                            tasks.push({
+                                    id: task.id,
+                                    label: task.title,
+                                    description: task.body,
+                                    isDone: false,
+                            })
+                            nextId = task.id
+                        })
+                        setTasks(tasks)
+                        setNextId((nextId + 1))
+                    })
+                    .catch(() => setHasError(true))
+            }
+        }
+    }, [])
+
+    useEffect( () => {
+        console.log(tasks)
+        window.localStorage.setItem('myTask', JSON.stringify(tasks))
+        console.log(tasks)
+    }, [tasks])
 
 
     const setTaskStatus = useCallback(
@@ -48,42 +88,6 @@ const App = () => {
         [tasks],
     )
 
-    useEffect( () => {
-        window.localStorage.setItem('myTask', JSON.stringify(tasks))
-        console.log('myTask', tasks)
-    }, [tasks])
-
-   useEffect(() => {
-        const items = window.localStorage.getItem('myTask')
-       console.log(items)
-        if (items) {
-            setTasks(JSON.parse(items));
-        }
-
-    }, []);
-
-     useEffect(() => {
-        if (!hasFetchedFirst) {
-            setHasFetchedFirst(true)
-            setHasError(false)
-            setIsFetching(true)
-                fetch('https://jsonplaceholder.typicode.com/users/1/posts')
-                    .then(res => res.json())
-                    .then(newTasks => {
-                        setIsFetching(false)
-                        setTasks(
-                            newTasks.map(task => ({
-                                id: task.id,
-                                label: task.title,
-                                description: task.body,
-                                isDone: false,
-                            })),
-                        )
-                        setNextId(Math.max(...newTasks.map(task => task.id)) + 1)
-                    })
-                    .catch(() => setHasError(true))
-            }
-    }, [])
 
     if (hasError) {
         return <p>An error occur...</p>
