@@ -14,10 +14,12 @@ const App = () => {
 
     useEffect(() => {
         const items = window.localStorage.getItem('myTask')
+        console.log(items)
         if (items && items.length) {
             const stringifyToParse = JSON.parse(items)
             setTasks(stringifyToParse)
-            setNextId(Math.max(stringifyToParse.map(item => item.id)) + 1)
+            setNextId(stringifyToParse.map(item => item.id) + 1)
+
         } else {
             if (!hasFetchedFirst) {
                 setHasFetchedFirst(true)
@@ -47,6 +49,7 @@ const App = () => {
     }, [])
 
     useEffect( () => {
+        console.log(tasks)
         window.localStorage.setItem('myTask', JSON.stringify(tasks))
     }, [tasks])
 
@@ -61,7 +64,7 @@ const App = () => {
                 setTasks([...tasksBefore, ...tasksAfter, newTask])
             }
             else {
-                setTasks([...tasksBefore, newTask, ...tasksAfter])
+                setTasks([newTask, ...tasksBefore, ...tasksAfter])
             }
         },
         [tasks],
