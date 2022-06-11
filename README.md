@@ -1,4 +1,4 @@
-# Welcome to SOGETI-TEST
+# Welcome to Todo-List
 Recruitment test for Sogeti about a Todo List <br>
 <br> In this todo list you could :
 - see the details of task ;
