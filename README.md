@@ -9,6 +9,12 @@ Recruitment test for Sogeti about a Todo List <br>
 
 The state will be save in the Local Storage for this test. Otherwise a database will be better.
 
+
+## Screenshot
+<img src="https://github.com/alexandre-ordas/todo-list/blob/master/public/images/front-page-todolist.png" height="600">
+
+
+
 ## Technical environment
 - HTML 5, CSS 3 => Bootstrap
 - JavaScript
